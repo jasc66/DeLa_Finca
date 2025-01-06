@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
@@ -15,7 +15,8 @@ interface AboutSectionProps {
 const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, content, image, imageAlt, isActive }, ref) => {
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLElement>,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
+    layoutEffect: false
   })
 
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0])
@@ -74,11 +75,8 @@ const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, conten
               alt="Decorative vegetable"
               width={160}
               height={160}
+              style={{ width: 'auto', height: 'auto' }}
               className="object-contain"
-              style={{
-                filter: 'brightness(1.2) contrast(1.1)',
-                mixBlendMode: 'multiply'
-              }}
             />
           </motion.div>
           <motion.div 
@@ -91,11 +89,8 @@ const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, conten
               alt="Decorative vegetable"
               width={160}
               height={160}
+              style={{ width: 'auto', height: 'auto' }}
               className="object-contain"
-              style={{
-                filter: 'brightness(1.2) contrast(1.1)',
-                mixBlendMode: 'multiply'
-              }}
             />
           </motion.div>
         </motion.div>
