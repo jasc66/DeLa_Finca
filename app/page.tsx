@@ -187,7 +187,7 @@ export default function Home() {
           <div className="absolute left-0 right-[30%] top-1/2 -translate-y-1/2 h-[80vh] rounded-r-lg overflow-hidden">
             <div className="absolute inset-0 bg-black/10" />
             <Image
-              src="/IMG/fondo-comida.webp"
+              src="/fondo-comida.webp"
               alt="Farm to Table"
               layout="fill"
               objectFit="cover"

@@ -38,7 +38,7 @@ export default function MenuPage() {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: "url('/img/fondo-comida.webp')" }}
+      style={{ backgroundImage: "url('/fondo-comida.webp')" }}
     >
       <Header />
 
