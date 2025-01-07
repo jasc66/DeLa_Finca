@@ -33,7 +33,7 @@ export function FloatingImage({ src, alt, className = '', width, height }: Float
         alt={alt}
         width={width}
         height={height}
-        className="object-contain"
+        className="object-contain w-full h-full"
         style={{
           filter: 'brightness(1.2) contrast(1.1)',
           mixBlendMode: 'multiply'

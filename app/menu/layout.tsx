@@ -7,7 +7,7 @@ export default function MenuLayout({
 }
 
 export const metadata = {
-  title: 'Menu | Green Rebel Restaurant',
+  title: 'Menu | De La Finca Restaurant',
   description: 'Browse through our delicious fresh menu and start making the right food choices today.',
 }
 

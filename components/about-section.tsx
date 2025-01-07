@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, useEffect } from 'react'
+import { forwardRef, useRef, useImperativeHandle } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
@@ -13,8 +13,12 @@ interface AboutSectionProps {
 }
 
 const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, content, image, imageAlt, isActive }, ref) => {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useImperativeHandle(ref, () => sectionRef.current as HTMLElement)
+
   const { scrollYProgress } = useScroll({
-    target: ref as React.RefObject<HTMLElement>,
+    target: sectionRef,
     offset: ["start end", "end start"],
     layoutEffect: false
   })
@@ -24,7 +28,7 @@ const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, conten
 
   return (
     <motion.section
-      ref={ref}
+      ref={sectionRef}
       className="relative min-h-screen flex items-center py-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0.3 }}
@@ -75,8 +79,13 @@ const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, conten
               alt="Decorative vegetable"
               width={160}
               height={160}
-              style={{ width: 'auto', height: 'auto' }}
               className="object-contain"
+              style={{
+                filter: 'brightness(1.2) contrast(1.1)',
+                mixBlendMode: 'multiply',
+                width: 'auto',
+                height: 'auto'
+              }}
             />
           </motion.div>
           <motion.div 
@@ -89,8 +98,13 @@ const AboutSection = forwardRef<HTMLElement, AboutSectionProps>(({ title, conten
               alt="Decorative vegetable"
               width={160}
               height={160}
-              style={{ width: 'auto', height: 'auto' }}
               className="object-contain"
+              style={{
+                filter: 'brightness(1.2) contrast(1.1)',
+                mixBlendMode: 'multiply',
+                width: 'auto',
+                height: 'auto'
+              }}
             />
           </motion.div>
         </motion.div>

@@ -19,6 +19,7 @@ export default function Header() {
               alt="Restaurant Logo"
               width={150}
               height={50}
+              priority
               className="h-12 w-auto"
             />
           </Link>

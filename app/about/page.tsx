@@ -12,9 +12,14 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 export default function AboutPage() {
   const [activeSection, setActiveSection] = useState(0)
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
-  const { scrollY } = useScroll()
-  const opacity = useTransform(scrollY, [0, 200], [1, 0])
-  const scale = useTransform(scrollY, [0, 200], [1, 0.8])
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  })
+
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +44,7 @@ export default function AboutPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#e6d5c3]">
+    <div className="min-h-screen bg-[#e6d5c3]" ref={containerRef}>
       <Header />
       
       {/* Hero Section */}
@@ -53,29 +58,29 @@ export default function AboutPage() {
             style={{ opacity, scale }}
           >
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-800 tracking-tight">
-                ABOUT GREEN REBEL
+              <h1 className="text-5xl md:text-7xl font-bold text-[#91211e] tracking-tight">
+                CONOCE MÁS
               </h1>
-              <div className="space-y-2">
-                <p className="text-2xl text-gray-700">REAL SERVICE.</p>
-                <p className="text-2xl text-gray-700">REAL PEOPLE.</p>
-                <p className="text-2xl text-gray-700">REAL CONNECTIONS.</p>
+              <h2 className="text-4xl md:text-6xl font-bold text-[#91211e] tracking-tight">
+                SOBRE NOSOTROS
+              </h2>
+              <div className="relative w-32 h-32 mx-auto lg:mx-0">
+                <Image
+                  src="/LogoDeLaFinca.png"
+                  alt="De La Finca Logo"
+                  fill
+                  className="object-contain"
+                />
               </div>
-              <Button 
-                variant="outline" 
-                className="bg-transparent border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white"
-              >
-                ORDER CATERING ONLINE
-              </Button>
             </div>
             
             <div className="relative flex justify-end">
               <div className="relative w-[500px] h-[700px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
-                  alt="Fresh Ingredients"
+                  src="/img/comida2.jpg"
+                  alt="De La Finca Restaurant"
                   fill
-                  className="object-contain brightness-125 contrast-125"
+                  className="object-cover rounded-lg"
                   style={{
                     filter: 'brightness(1.2) contrast(1.1)',
                     mixBlendMode: 'multiply'
@@ -83,7 +88,7 @@ export default function AboutPage() {
                 />
                 {/* Light effect overlay */}
                 <div 
-                  className="absolute inset-0"
+                  className="absolute inset-0 rounded-lg"
                   style={{
                     background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)',
                     mixBlendMode: 'overlay'
@@ -94,13 +99,11 @@ export default function AboutPage() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent" />
-
         <motion.button 
           onClick={() => {
             sectionRefs.current[1]?.scrollIntoView({ behavior: 'smooth' })
           }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-800 animate-bounce"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#91211e] animate-bounce"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -125,22 +128,22 @@ export default function AboutPage() {
 
 const aboutSections = [
   {
-    title: "Our Story",
-    content: "Green Rebel was born from a simple idea: healthy food should be delicious, accessible, and sustainable. We started in a small kitchen with big dreams, committed to bringing fresh, wholesome meals to our community.",
-    image: "https://images.unsplash.com/photo-1557844352-761f2565b576",
-    imageAlt: "Fresh vegetables on wooden table"
+    title: "Nuestra Historia",
+    content: "Ubicado en el corazón de Quepos, Puntarenas, De La Finca es un restaurante que ofrece una experiencia culinaria única, en donde la frescura de los ingredientes y la dedicación por la gastronomía costarricense se unen para deleitar a los paladares más exigentes.",
+    image: "/img/comida2.jpg",
+    imageAlt: "Interior del restaurante De La Finca"
   },
   {
-    title: "Our Mission",
-    content: "We're on a mission to revolutionize the way people think about healthy eating. By sourcing the freshest ingredients and creating innovative dishes, we prove that nutritious food can be exciting and satisfying.",
-    image: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1",
-    imageAlt: "Chef preparing fresh ingredients"
+    title: "Nuestra Misión",
+    content: "En De La Finca, nuestra misión es hacer que la comida de calidad sea accesible, agradable y sostenible. Creemos en el poder de la buena comida para nutrir tanto el cuerpo como el alma, y estamos comprometidos a servir platos que sean tan buenos para ti como lo son para el medio ambiente.",
+    image: "/img/comida1.jpg",
+    imageAlt: "Platos de De La Finca"
   },
   {
-    title: "Our Values",
-    content: "Sustainability isn't just a buzzword for us—it's a way of life. We work directly with local farmers, minimize our environmental impact, and create lasting relationships with our community.",
-    image: "https://images.unsplash.com/photo-1595855759920-86582396756c",
-    imageAlt: "Organic farming"
+    title: "Nuestros Valores",
+    content: "La sostenibilidad y la calidad son fundamentales en todo lo que hacemos. Trabajamos directamente con productores locales, minimizamos nuestro impacto ambiental y creamos relaciones duraderas con nuestra comunidad para ofrecer la mejor experiencia gastronómica posible.",
+    image: "/img/comida3.jpg",
+    imageAlt: "Ingredientes frescos de De La Finca"
   }
 ]
 

@@ -8,10 +8,20 @@ import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import MenuSection from "@/components/menu-section";
 import { menuItems, menuCategories } from "@/data/menu-items";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function MenuPage() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,38 +46,37 @@ export default function MenuPage() {
   }, []);
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: "url('/fondo-comida.webp')" }}
-    >
+    <div className="relative min-h-screen overflow-hidden" ref={containerRef}>
       <Header />
 
-      {/* Hero Section */}
-      <section 
-        ref={(el) => { sectionRefs.current[0] = el }}
-        className="relative min-h-screen pt-20 flex items-center"
+      {/* Hero Section with fixed background */}
+      <section
+        ref={(el) => {
+          sectionRefs.current[0] = el;
+        }}
+        className="relative min-h-screen flex items-center"
+        style={{
+          backgroundImage: "url('/img/cartonFondo.avif')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/img/cartonFondo.avif"
-            alt="Menu Hero"
-            fill
-            className="object-cover"
-            quality={100}
-            priority
-          />
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <motion.div
+          className="container mx-auto px-4 relative z-10"
+          style={{ opacity: heroOpacity, scale: heroScale }}
+        >
           <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-800 tracking-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-800 tracking-tight mb-6 text-balance">
               DE LA FINCA MENU
             </h1>
-            <p className="text-xl text-gray-700 mb-8">
-              EXPLORE OUR DELICIOUS FRESH MENU AND START MAKING THE RIGHT FOOD CHOICES TODAY.
+            <p className="text-lg sm:text-xl text-gray-700 mb-8 text-balance">
+              EXPLORE OUR DELICIOUS FRESH MENU AND START MAKING THE RIGHT FOOD
+              CHOICES TODAY.
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="bg-transparent border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white"
             >
               <Image
@@ -80,11 +89,11 @@ export default function MenuPage() {
               DOWNLOAD ON THE APP STORE
             </Button>
           </div>
-        </div>
+        </motion.div>
 
-        <button 
+        <button
           onClick={() => {
-            sectionRefs.current[1]?.scrollIntoView({ behavior: 'smooth' })
+            sectionRefs.current[1]?.scrollIntoView({ behavior: "smooth" });
           }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce z-10"
         >
@@ -93,17 +102,30 @@ export default function MenuPage() {
       </section>
 
       {/* Menu Sections */}
-      {menuCategories.map((category, index) => (
-        <MenuSection
-          key={category}
-          ref={(el) => {
-            sectionRefs.current[index + 1] = el;
-          }}
-          title={category}
-          items={menuItems.filter((item) => item.category === category)}
-          isActive={activeSection === index + 1}
-        />
-      ))}
+      <div
+        className="relative z-10"
+        style={{
+          backgroundImage: "url('/fondo-comida.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-20">
+          {menuCategories.map((category, index) => (
+            <MenuSection
+              key={category}
+              ref={(el) => {
+                sectionRefs.current[index + 1] = el;
+              }}
+              title={category}
+              items={menuItems.filter((item) => item.category === category)}
+              isActive={activeSection === index + 1}
+            />
+          ))}
+        </div>
+      </div>
 
       <Footer />
     </div>

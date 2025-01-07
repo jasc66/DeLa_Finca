@@ -7,7 +7,7 @@ export default function AboutLayout({
 }
 
 export const metadata = {
-  title: 'About | Green Rebel Restaurant',
-  description: 'Learn about our story, mission, and values at Green Rebel Restaurant.',
+  title: 'About | De La Finca Restaurante',
+  description: 'Learn about our story, mission, and values at De La Finca Restaurant.',
 }
 
