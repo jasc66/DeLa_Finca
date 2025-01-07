@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
 import AboutSection from '@/components/about-section'
@@ -51,6 +50,12 @@ export default function AboutPage() {
       <section 
         ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
         className="relative min-h-screen pt-20"
+        style={{
+          backgroundImage: "url('/img/cartonFondo.avif')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="container mx-auto px-4 pt-20">
           <motion.div 
@@ -77,7 +82,7 @@ export default function AboutPage() {
             <div className="relative flex justify-end">
               <div className="relative w-[500px] h-[700px]">
                 <Image
-                  src="/img/comida2.jpg"
+                  src="/img/comida7.jpg"
                   alt="De La Finca Restaurant"
                   fill
                   className="object-cover rounded-lg"
