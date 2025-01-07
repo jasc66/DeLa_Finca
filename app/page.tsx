@@ -67,43 +67,7 @@ export default function Home() {
       ref={containerRef}
     >
       <div className="min-h-screen relative overflow-hidden" ref={containerRef}>
-        {/* Floating Images */}
-        <FloatingImage
-          src="https://www.pngmart.com/files/15/Fresh-Organic-Tomato-PNG.png"
-          alt="Floating Tomato"
-          className="absolute top-[10%] -right-20 w-[300px] h-[300px] floating-image z-10"
-          width={300}
-          height={300}
-        />
-        <FloatingImage
-          src="https://www.pngmart.com/files/15/Organic-Carrot-PNG.png"
-          alt="Floating Carrot"
-          className="absolute top-[30%] -left-20 w-[200px] h-[400px] floating-image z-20"
-          width={200}
-          height={400}
-        />
-        <FloatingImage
-          src="https://www.pngmart.com/files/1/Green-Lettuce-PNG.png"
-          alt="Floating Lettuce"
-          className="absolute top-[50%] -right-40 w-[400px] h-[400px] floating-image z-30"
-          width={400}
-          height={400}
-        />
-        <FloatingImage
-          src="https://www.pngmart.com/files/15/Bell-Pepper-PNG-Pic.png"
-          alt="Floating Pepper"
-          className="absolute top-[70%] -left-20 w-[250px] h-[250px] floating-image z-40"
-          width={250}
-          height={250}
-        />
-        {/* <FloatingImage
-        src="https://www.pngmart.com/files/1/Mushroom-PNG-File.png"
-        alt="Floating Mushroom"
-        className="absolute top-[90%] right-0 w-[200px] h-[200px] floating-image z-50"
-        width={200}
-        height={200}
-      /> */}
-
+       
         <Header />
 
         <Hero />
@@ -189,8 +153,7 @@ export default function Home() {
             <Image
               src="/fondo-comida.webp"
               alt="Farm to Table"
-              layout="fill"
-              objectFit="cover"
+              fill
               className="mix-blend-overlay opacity-50"
             />
           </div>
@@ -213,9 +176,9 @@ export default function Home() {
           <FloatingImage
             src="https://www.pngmart.com/files/1/Mushroom-PNG-File.png"
             alt="Floating Carrot"
-            className="absolute top-1/2 right-[10%] w-[100px] h-[200px] md:w-[400px] md:h-[300px] floating-image z-20"
-            width={400}
-            height={500}
+            className="absolute top-1/2 right-[8%] w-[100px] h-[200px] md:w-[200px] md:h-[300px] floating-image z-20"
+            width={300}
+            height={300}
           />
         </section>
         {/* Fourth Section - Full width */}
@@ -230,8 +193,7 @@ export default function Home() {
             <Image
               src="/img/fondo-gris.avif"
               alt="Fresh Ingredients"
-              layout="fill"
-              objectFit="cover"
+              fill
               className="mix-blend-overlay opacity-50"
             />
           </div>
@@ -255,47 +217,14 @@ export default function Home() {
           <FloatingImage
             src="/png/img4_bg.png"
             alt="Floating Pepper"
-            className="absolute top-1/4 -right-20 w-[185px] h-[185px] md:w-[350px] md:h-[350px] floating-image z-40"
+            className="absolute top-1/3 -right-10 w-[185px] h-[185px] md:w-[350px] md:h-[350px] floating-image z-40"
             width={350}
             height={350}
           />
         </section>
       </div>
 
-      <Section
-        ref={(el: HTMLElement | null) => {
-          sectionRefs.current[2] = el;
-        }}
-        title="Our Mission"
-        content="At Green Rebel, our mission is to make healthy eating accessible, enjoyable, and sustainable. We believe in the power of good food to nourish both body and planet, and we're committed to serving meals that are as good for you as they are for the environment."
-        image="https://images.unsplash.com/photo-1490818387583-1baba5e638af"
-        floatingImage={{
-          src: "/png/img1_bg.png",
-          alt: "Floating Lettuce",
-          width: 400,
-          height: 400,
-        }}
-        isActive={activeSection === 2}
-      />
-
-      <Section
-        ref={(el: HTMLElement | null) => {
-          sectionRefs.current[3] = el;
-        }}
-        title="Our Food"
-        content="From farm-fresh salads to hearty grain bowls, every dish at Green Rebel is crafted with care using the finest ingredients. We prioritize local, organic produce and create flavor combinations that excite the palate while nourishing the body."
-        image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
-        floatingImage={{
-          src: "https://www.pngmart.com/files/1/Mushroom-PNG-File.png",
-          alt: "Floating Pepper",
-          width: 250,
-          height: 250,
-        }}
-        isActive={activeSection === 3}
-        
-      />
-
-      <Products />
+      
       <Mission />
       <Testimonials />
       <CTA />
@@ -303,60 +232,3 @@ export default function Home() {
     </div>
   );
 }
-
-interface SectionProps {
-  title: string;
-  content: string;
-  image: string;
-  floatingImage: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-  isActive: boolean;
-}
-
-const Section = forwardRef<HTMLElement, SectionProps>(
-  ({ title, content, image, floatingImage, isActive }, ref) => {
-    return (
-      <section
-        ref={ref}
-        className="relative min-h-screen flex items-center py-20"
-      >
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-            style={{
-              filter: "brightness(0.7)",
-            }}
-          />
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              {title}
-            </h2>
-            <p className="text-xl text-white/90 leading-relaxed">{content}</p>
-          </div>
-        </div>
-
-        <FloatingImage
-          src={floatingImage.src}
-          alt={floatingImage.alt}
-          className={`absolute top-1/2 right-0 transform -translate-y-1/2 floating-image z-20 transition-opacity duration-500 ${
-            isActive ? "opacity-100" : "opacity-0"
-          }`}
-          width={floatingImage.width}
-          height={floatingImage.height}
-        />
-      </section>
-    );
-  }
-);
-
-Section.displayName = "Section";
