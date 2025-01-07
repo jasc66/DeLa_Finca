@@ -80,7 +80,7 @@ export default function AboutPage() {
             </div>
             
             <div className="relative flex justify-end">
-              <div className="relative w-[500px] h-[700px]">
+              <div className="relative w-[400px] h-[500px]">
                 <Image
                   src="/img/comida7.jpg"
                   alt="De La Finca Restaurant"
