@@ -6,19 +6,11 @@ import Footer from '@/components/footer'
 import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
 import AboutSection from '@/components/about-section'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { FloatingImage } from '@/components/floating-image'
 
 export default function AboutPage() {
   const [activeSection, setActiveSection] = useState(0)
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  })
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +35,7 @@ export default function AboutPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#e6d5c3]" ref={containerRef}>
+    <div className="min-h-screen">
       <Header />
       
       {/* Hero Section */}
@@ -51,22 +43,19 @@ export default function AboutPage() {
         ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
         className="relative min-h-screen pt-20"
         style={{
-          backgroundImage: "url('/img/cartonFondo.avif')",
+          backgroundImage: "url('/fondo-gris.avif')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="container mx-auto px-4 pt-20">
-          <motion.div 
-            className="grid lg:grid-cols-2 gap-8 items-center"
-            style={{ opacity, scale }}
-          >
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-bold text-[#91211e] tracking-tight">
+        <div className="container mx-auto px-4 pt-20 max-w-7xl">
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+            <div className="space-y-6 text-center lg:text-left bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg w-full lg:w-1/2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#91211e] tracking-tight">
                 CONOCE MÁS
               </h1>
-              <h2 className="text-4xl md:text-6xl font-bold text-[#91211e] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#91211e] tracking-tight">
                 SOBRE NOSOTROS
               </h2>
               <div className="relative w-32 h-32 mx-auto lg:mx-0">
@@ -79,41 +68,52 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="relative flex justify-end">
-              <div className="relative w-[400px] h-[500px]">
-                <Image
-                  src="/img/comida7.jpg"
-                  alt="De La Finca Restaurant"
-                  fill
-                  className="object-cover rounded-lg"
-                  style={{
-                    filter: 'brightness(1.2) contrast(1.1)',
-                    mixBlendMode: 'multiply'
-                  }}
-                />
-                {/* Light effect overlay */}
-                <div 
-                  className="absolute inset-0 rounded-lg"
-                  style={{
-                    background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)',
-                    mixBlendMode: 'overlay'
-                  }}
-                />
-              </div>
+            <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px]">
+              <Image
+                src="/img/comida2.jpg"
+                alt="De La Finca Restaurant"
+                fill
+                className="object-cover rounded-lg"
+                style={{
+                  filter: 'brightness(1.2) contrast(1.1)',
+                  mixBlendMode: 'multiply'
+                }}
+              />
+              <div 
+                className="absolute inset-0 rounded-lg"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)',
+                  mixBlendMode: 'overlay'
+                }}
+              />
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.button 
+        <FloatingImage
+          src="/png/img1_bg.png"
+          alt="Floating Mushroom"
+          className="absolute hidden md:block top-1/1 left-0 w-[100px] h-[100px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] floating-image z-10"
+          width={200}
+          height={200}
+        />
+
+        <FloatingImage
+          src="/png/img2_bg.png"
+          alt="Floating Leaf"
+          className="absolute hidden md:block bottom-2/4 right-0 w-[100px] h-[100px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] floating-image z-10"
+          width={200}
+          height={200}
+        />
+
+        <button 
           onClick={() => {
             sectionRefs.current[1]?.scrollIntoView({ behavior: 'smooth' })
           }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#91211e] animate-bounce"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#91211e] animate-bounce bg-white/80 rounded-full p-2"
         >
-          <ChevronDown className="h-8 w-8" />
-        </motion.button>
+          <ChevronDown className="h-6 w-6 sm:h-8 sm:w-8" />
+        </button>
       </section>
 
       {/* About Sections */}
@@ -135,13 +135,13 @@ const aboutSections = [
   {
     title: "Nuestra Historia",
     content: "Ubicado en el corazón de Quepos, Puntarenas, De La Finca es un restaurante que ofrece una experiencia culinaria única, en donde la frescura de los ingredientes y la dedicación por la gastronomía costarricense se unen para deleitar a los paladares más exigentes.",
-    image: "/img/comida2.jpg",
+    image: "/img/interior.jpeg",
     imageAlt: "Interior del restaurante De La Finca"
   },
   {
     title: "Nuestra Misión",
     content: "En De La Finca, nuestra misión es hacer que la comida de calidad sea accesible, agradable y sostenible. Creemos en el poder de la buena comida para nutrir tanto el cuerpo como el alma, y estamos comprometidos a servir platos que sean tan buenos para ti como lo son para el medio ambiente.",
-    image: "/img/comida1.jpg",
+    image: "/img/comida7.jpg",
     imageAlt: "Platos de De La Finca"
   },
   {
