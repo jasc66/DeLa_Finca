@@ -34,6 +34,9 @@ export default function Header() {
             <Link href="/about" className="text-white hover:text-primary-foreground">
               NOSOTROS
             </Link>
+            <Link href="/contact" className="text-white hover:text-primary-foreground">
+              CONTACTO
+            </Link>
             <Button variant="secondary" className="bg-white text-black hover:bg-white/90">
               ORDENE YA
             </Button>
@@ -60,6 +63,9 @@ export default function Header() {
             </Link>
             <Link href="/about" className="text-white hover:text-primary-foreground">
               NOSOTROS
+            </Link>
+            <Link href="/contact" className="text-white hover:text-primary-foreground">
+              CONTACTO
             </Link>
             <Button variant="secondary" className="bg-white text-black hover:bg-white/90">
               ORDENE YA

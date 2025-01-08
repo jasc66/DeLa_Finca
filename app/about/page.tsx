@@ -41,7 +41,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section 
         ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
-        className="relative min-h-screen pt-20"
+        className="relative min-h-screen pt-10"
         style={{
           backgroundImage: "url('/fondo-gris.avif')",
           backgroundSize: "cover",

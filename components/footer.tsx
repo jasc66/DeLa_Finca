@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Facebook, Instagram, Twitter, Phone, Mail, MessageCircle, Clock, FileText } from 'lucide-react'
 
 export default function Footer() {
-  const whatsappNumber = '+50627740156'
+  const whatsappNumber = '+50688260107'
   const whatsappMessage = encodeURIComponent('Hola, me gustaría hacer una reserva.')
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
 
@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-xl font-bold mb-4">Contacto</h3>
             <div className="flex flex-col space-y-2">
-              <Link href="tel:+50627740156" className="text-white/80 hover:text-white flex items-center">
+              <Link href="tel:+50688260107" className="text-white/80 hover:text-white flex items-center">
                 <Phone className="h-5 w-5 mr-2" />
                 <span>+506 2774 0156</span>
               </Link>
