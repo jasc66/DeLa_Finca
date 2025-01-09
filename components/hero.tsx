@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from "next/link"
 
 export default function Hero() {
   return (
@@ -18,9 +19,11 @@ export default function Hero() {
         De la Finca a tu mesa:<br />
         Sabores auténticos, frescura inigualable.
         </h1>
-        <Button size="lg" variant="outline" className="text-black border-white hover:bg-black hover:text-white">
-        Revisa el menú
-        </Button>
+        <Link href="/menu">
+          <Button size="lg" variant="outline" className="text-black border-white hover:bg-black hover:text-white">
+            Revisa el menú
+          </Button>
+        </Link>
       </div>
 
       {/* Botones de navegación */}

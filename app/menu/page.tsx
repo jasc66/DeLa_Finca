@@ -86,7 +86,7 @@ export default function MenuPage() {
                 height={20}
                 className="mr-2"
               />
-              DOWNLOAD ON THE APP STORE
+              DESCARGAR MENU
             </Button>
           </div>
         </motion.div>
