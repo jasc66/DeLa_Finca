@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Download } from "lucide-react";
 import MenuSection from "@/components/menu-section";
 import { menuItems, menuCategories } from "@/data/menu-items";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -56,7 +55,7 @@ export default function MenuPage() {
         }}
         className="relative min-h-screen flex items-center"
         style={{
-          backgroundImage: "url('/img/cartonFondo.avif')",
+          backgroundImage: "url('/img/localComercial.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -75,17 +74,11 @@ export default function MenuPage() {
               EXPLORE OUR DELICIOUS FRESH MENU AND START MAKING THE RIGHT FOOD
               CHOICES TODAY.
             </p>
-            <Button
-              variant="outline"
+            <Button 
+              variant="outline" 
               className="bg-transparent border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white"
             >
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/2048px-App_Store_%28iOS%29.svg.png"
-                alt="Apple Logo"
-                width={20}
-                height={20}
-                className="mr-2"
-              />
+              <Download className="mr-2 h-4 w-4" />
               DESCARGAR MENU
             </Button>
           </div>
