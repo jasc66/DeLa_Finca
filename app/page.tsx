@@ -210,13 +210,12 @@ export default function Home() {
           <FloatingImage
             src="/png/img4_bg.png"
             alt="Floating Pepper"
-            className="absolute top-1/3 -right-10 w-[100px] h-[100px] md:w-[185px] md:h-[185px] lg:w-[350px] lg:h-[350px] floating-image z-40"
-            width={350}
-            height={350}
+            className="absolute top-1/4 -right-10 w-[100px] h-[100px] md:w-[185px] md:h-[185px] lg:w-[250px] lg:h-[250px] floating-image z-40"
+            width={250}
+            height={250}
           />
         </section>
       </main>
-
       <Mission />
       <Testimonials />
       <CTA />

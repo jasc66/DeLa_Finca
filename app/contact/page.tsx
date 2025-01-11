@@ -33,7 +33,7 @@ export default function ContactPage() {
           <section className="relative min-h-screen flex items-center py-20 px-4">
             <div className="absolute inset-0 z-0">
               <Image
-                src="/img/fondo-gris.avif"
+                src="/fondo-comida.webp"
                 alt="Background"
                 fill
                 className="object-cover"
