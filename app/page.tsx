@@ -13,6 +13,7 @@ import Mission from "@/components/mission";
 import Testimonials from "@/components/testimonials";
 import CTA from "@/components/cta";
 import { ImageCarousel } from "@/components/image-carousel";
+import PhotoGallery from "@/components/photo-gallery";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -208,6 +209,7 @@ export default function Home() {
         </main>
         <Mission />
         <Testimonials />
+        <PhotoGallery />
         <CTA />
         <Footer />
       </div>
