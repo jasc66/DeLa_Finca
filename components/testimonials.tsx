@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
-import { Loader2 } from 'lucide-react'
-import { Button } from "@/components/ui/button"
 
 declare global {
   interface Window {
@@ -16,20 +14,18 @@ declare global {
 
 export default function Testimonials() {
   const trustmaryContainerRef = useRef<HTMLDivElement>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
-  const loadTrustmary = () => {
-    setIsLoading(true)
-    setError(null)
-
+  useEffect(() => {
+    // Verifica si el contenedor está disponible
     if (trustmaryContainerRef.current) {
-      trustmaryContainerRef.current.innerHTML = '' // Clear the container
+      trustmaryContainerRef.current.innerHTML = '' // Limpia el contenedor
 
+      // Crea un marcador para el widget
       const widgetPlaceholder = document.createElement('div')
       widgetPlaceholder.id = 'trustmary-widget'
       trustmaryContainerRef.current.appendChild(widgetPlaceholder)
 
+      // Función para inicializar el widget
       const initTrustmary = () => {
         try {
           if (!window.tmary) {
@@ -39,32 +35,37 @@ export default function Testimonials() {
           }
           window.tmary('app', 'KoVx7GQHD')
         } catch (error) {
-          console.warn("Error initializing Trustmary:", error)
-          setError("Failed to initialize Trustmary widget")
-        } finally {
-          setIsLoading(false)
+          console.warn("Error al inicializar Trustmary:", error)
         }
       }
 
+      // Crea el script para cargar el widget
       const script = document.createElement('script')
       script.src = "https://widget.trustmary.com/KoVx7GQHD"
       script.async = true
 
+      // Maneja la carga del script
       script.onload = () => {
-        if (document.readyState === 'complete') {
-          initTrustmary()
+        if (document.readyState === 'complete' && trustmaryContainerRef.current) {
+          try {
+            initTrustmary()
+          } catch (error) {
+            console.warn("Error en script.onload:", error)
+          }
         } else {
-          window.addEventListener('load', initTrustmary)
+          window.addEventListener('load', () => {
+            try {
+              if (trustmaryContainerRef.current) {
+                initTrustmary()
+              }
+            } catch (error) {
+              console.warn("Error en evento load:", error)
+            }
+          })
         }
       }
 
-      script.onerror = () => {
-        console.error("Failed to load Trustmary script")
-        setError("Failed to load Trustmary widget")
-        setIsLoading(false)
-      }
-
-      // Handle global errors related to the script
+      // Maneja errores globales relacionados con el script
       const originalError = console.error
       console.error = (...args) => {
         const errorMessage = args[0]?.toString() || ''
@@ -72,30 +73,25 @@ export default function Testimonials() {
           errorMessage.includes("TypeError") &&
           errorMessage.includes("parentElement")
         ) {
-          console.log("Caught and handled Trustmary error:", errorMessage)
-          setError("An error occurred while loading testimonials")
-          setIsLoading(false)
+          console.log("Error atrapado y manejado de Trustmary:", errorMessage)
           return
         }
         originalError.apply(console, args)
       }
 
-      document.head.appendChild(script)
+      // Añade el script al contenedor
+      trustmaryContainerRef.current.appendChild(script)
 
+      // Limpieza del componente
       return () => {
         if (trustmaryContainerRef.current) {
-          trustmaryContainerRef.current.innerHTML = ''
+          while (trustmaryContainerRef.current.firstChild) {
+            trustmaryContainerRef.current.removeChild(trustmaryContainerRef.current.firstChild)
+          }
         }
         window.removeEventListener('load', initTrustmary)
-        console.error = originalError // Restore console.error
+        console.error = originalError // Restaura console.error
       }
-    }
-  }
-
-  useEffect(() => {
-    const cleanup = loadTrustmary()
-    return () => {
-      if (cleanup) cleanup()
     }
   }, [])
 
@@ -104,24 +100,11 @@ export default function Testimonials() {
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
         <Card>
-          <CardContent className="min-h-[300px] flex items-center justify-center">
-            {isLoading ? (
-              <div className="text-center">
-                <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-                <p>Cargando testimonios...</p>
-              </div>
-            ) : error ? (
-              <div className="text-center">
-                <p className="text-red-500 mb-4">{error}</p>
-                <Button onClick={loadTrustmary}>Intentar de nuevo</Button>
-              </div>
-            ) : (
-              <div ref={trustmaryContainerRef} className="trustmary-container w-full" />
-            )}
+          <CardContent>
+            <div ref={trustmaryContainerRef} className="trustmary-container" />
           </CardContent>
         </Card>
       </div>
     </section>
   )
 }
-
