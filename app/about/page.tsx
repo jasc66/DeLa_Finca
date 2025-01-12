@@ -43,7 +43,7 @@ export default function AboutPage() {
         ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
         className="relative min-h-screen pt-10"
         style={{
-          backgroundImage: "url('/fondo-comida.webp')",
+          backgroundImage: "url('/img/cartonFondo.avif')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 fill
                 className="object-cover rounded-lg"
                 style={{
-                  filter: 'brightness(1.2) contrast(1.1)',
+                  filter: 'brightness(1.) contrast(1.1)',
                   mixBlendMode: 'multiply'
                 }}
               />
