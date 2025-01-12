@@ -1,44 +1,125 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
-import { Star } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+
+declare global {
+  interface Window {
+    tmary: {
+      (action: string, widgetId: string): void;
+      q?: any[];
+    };
+  }
+}
 
 export default function Testimonials() {
-  const testimonials = [
-    {
-      name: "Sarah M.",
-      text: "The best healthy food I've ever had! Fresh ingredients and amazing flavors.",
-      rating: 5
-    },
-    {
-      name: "John D.",
-      text: "Great service and even better food. Their bowls are my go-to lunch option.",
-      rating: 5
-    },
-    {
-      name: "Emily R.",
-      text: "Love their commitment to sustainable practices and local sourcing.",
-      rating: 5
+  const trustmaryContainerRef = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const loadTrustmary = () => {
+    setIsLoading(true)
+    setError(null)
+
+    if (trustmaryContainerRef.current) {
+      trustmaryContainerRef.current.innerHTML = '' // Clear the container
+
+      const widgetPlaceholder = document.createElement('div')
+      widgetPlaceholder.id = 'trustmary-widget'
+      trustmaryContainerRef.current.appendChild(widgetPlaceholder)
+
+      const initTrustmary = () => {
+        try {
+          if (!window.tmary) {
+            window.tmary = function (...args: any[]) {
+              (window.tmary.q = window.tmary.q || []).push(args)
+            }
+          }
+          window.tmary('app', 'KoVx7GQHD')
+        } catch (error) {
+          console.warn("Error initializing Trustmary:", error)
+          setError("Failed to initialize Trustmary widget")
+        } finally {
+          setIsLoading(false)
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = "https://widget.trustmary.com/KoVx7GQHD"
+      script.async = true
+
+      script.onload = () => {
+        if (document.readyState === 'complete') {
+          initTrustmary()
+        } else {
+          window.addEventListener('load', initTrustmary)
+        }
+      }
+
+      script.onerror = () => {
+        console.error("Failed to load Trustmary script")
+        setError("Failed to load Trustmary widget")
+        setIsLoading(false)
+      }
+
+      // Handle global errors related to the script
+      const originalError = console.error
+      console.error = (...args) => {
+        const errorMessage = args[0]?.toString() || ''
+        if (
+          errorMessage.includes("TypeError") &&
+          errorMessage.includes("parentElement")
+        ) {
+          console.log("Caught and handled Trustmary error:", errorMessage)
+          setError("An error occurred while loading testimonials")
+          setIsLoading(false)
+          return
+        }
+        originalError.apply(console, args)
+      }
+
+      document.head.appendChild(script)
+
+      return () => {
+        if (trustmaryContainerRef.current) {
+          trustmaryContainerRef.current.innerHTML = ''
+        }
+        window.removeEventListener('load', initTrustmary)
+        console.error = originalError // Restore console.error
+      }
     }
-  ]
+  }
+
+  useEffect(() => {
+    const cleanup = loadTrustmary()
+    return () => {
+      if (cleanup) cleanup()
+    }
+  }, [])
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">What Our Customers Say</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.name} className="bg-muted">
-              <CardContent className="p-6">
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="mb-4">{testimonial.text}</p>
-                <p className="font-semibold">{testimonial.name}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <h2 className="text-4xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+        <Card>
+          <CardContent className="min-h-[300px] flex items-center justify-center">
+            {isLoading ? (
+              <div className="text-center">
+                <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+                <p>Cargando testimonios...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center">
+                <p className="text-red-500 mb-4">{error}</p>
+                <Button onClick={loadTrustmary}>Intentar de nuevo</Button>
+              </div>
+            ) : (
+              <div ref={trustmaryContainerRef} className="trustmary-container w-full" />
+            )}
+          </CardContent>
+        </Card>
       </div>
     </section>
   )
