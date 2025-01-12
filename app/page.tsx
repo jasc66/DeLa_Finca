@@ -62,7 +62,7 @@ export default function Home() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
         style={{
-          backgroundImage: "url('/img/fondo_comida.jpg')",
+          backgroundImage: "url('/fondo-comida.webp')",
           filter: "brightness(0.7)",
         }}
       />
