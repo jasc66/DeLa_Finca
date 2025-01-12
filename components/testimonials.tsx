@@ -28,10 +28,12 @@ export default function Testimonials() {
       // Función para inicializar el widget
       const initTrustmary = () => {
         try {
-          window.tmary = window.tmary || function (...args: any[]) {
-            (window.tmary.q = window.tmary.q || []).push(args)
+          if (!window.tmary) {
+            window.tmary = function (...args: any[]) {
+              (window.tmary.q = window.tmary.q || []).push(args)
+            }
           }
-          window.tmary('app', 'KoVx7GQHD')
+          window.tmary('app', 'KoVx7GQHD') // ID del widget
         } catch (error) {
           console.warn("Error al inicializar Trustmary:", error)
         }
@@ -44,22 +46,12 @@ export default function Testimonials() {
 
       // Maneja la carga del script
       script.onload = () => {
-        if (document.readyState === 'complete' && trustmaryContainerRef.current) {
+        if (trustmaryContainerRef.current) {
           try {
             initTrustmary()
           } catch (error) {
             console.warn("Error en script.onload:", error)
           }
-        } else {
-          window.addEventListener('load', () => {
-            try {
-              if (trustmaryContainerRef.current) {
-                initTrustmary()
-              }
-            } catch (error) {
-              console.warn("Error en evento load:", error)
-            }
-          })
         }
       }
 

@@ -38,7 +38,7 @@ export default function Mission() {
       </div>
 
       <FloatingImage
-        src="/png/img17_bg.png"
+        src="/png/img16_bg.png"
         alt="Floating Mushroom"
         className="absolute hidden md:block top-1/2 left-0 sm:left-[2%] w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] floating-image z-30"
         width={300}
