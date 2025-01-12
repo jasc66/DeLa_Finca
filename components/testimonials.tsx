@@ -28,10 +28,8 @@ export default function Testimonials() {
       // Función para inicializar el widget
       const initTrustmary = () => {
         try {
-          if (!window.tmary) {
-            window.tmary = function (...args: any[]) {
-              (window.tmary.q = window.tmary.q || []).push(args)
-            }
+          window.tmary = window.tmary || function (...args: any[]) {
+            (window.tmary.q = window.tmary.q || []).push(args)
           }
           window.tmary('app', 'KoVx7GQHD')
         } catch (error) {
