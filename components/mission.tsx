@@ -12,10 +12,10 @@ export default function Mission() {
       }}
       className="relative min-h-screen flex items-center justify-end py-20 px-4 sm:px-6 lg:px-8"
     >
-      <div className="absolute left-0 sm:left-[10%] md:left-[20%] right-0 top-1/2 -translate-y-1/2 h-[80vh] bg-[#292929] rounded-l-lg overflow-hidden">
-        <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute left-0 sm:left-[10%] md:left-[20%] right-0 top-1/2 -translate-y-1/2 h-[80vh] bg-[#91211e] rounded-l-lg overflow-hidden">
+        <div className="absolute inset-0 bg-black/50" />
         <Image
-          src="/img/comida8.jpg"
+          src="/img/cartonFondo.avif"
           alt="Sustainable Practices"
           fill
           className="object-cover mix-blend-overlay opacity-50"

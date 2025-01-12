@@ -2,12 +2,28 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (path: string) => pathname === path
+
+  const linkClass = (path: string) =>
+    `text-white hover:text-primary-foreground transition-colors duration-200 ${
+      isActive(path) ? 'font-bold border-b-2 border-primary-foreground' : ''
+    }`
+
+  const menuItems = [
+    { href: '/', label: 'INICIO' },
+    { href: '/menu', label: 'MENU' },
+    { href: '/about', label: 'NOSOTROS' },
+    { href: '/contact', label: 'CONTACTO' },
+  ]
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm">
@@ -25,18 +41,11 @@ export default function Header() {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-white hover:text-primary-foreground">
-              INICIO
-            </Link>
-            <Link href="/menu" className="text-white hover:text-primary-foreground">
-              MENU
-            </Link>
-            <Link href="/about" className="text-white hover:text-primary-foreground">
-              NOSOTROS
-            </Link>
-            <Link href="/contact" className="text-white hover:text-primary-foreground">
-              CONTACTO
-            </Link>
+            {menuItems.map((item) => (
+              <Link key={item.href} href={item.href} className={linkClass(item.href)}>
+                {item.label}
+              </Link>
+            ))}
             <Button variant="secondary" className="bg-white text-black hover:bg-white/90">
               ORDENE YA
             </Button>
@@ -55,18 +64,11 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-black/95 backdrop-blur-sm">
           <nav className="flex flex-col items-center py-4 space-y-4">
-            <Link href="/" className="text-white hover:text-primary-foreground">
-              INICIO
-            </Link>
-            <Link href="/menu" className="text-white hover:text-primary-foreground">
-              MENU
-            </Link>
-            <Link href="/about" className="text-white hover:text-primary-foreground">
-              NOSOTROS
-            </Link>
-            <Link href="/contact" className="text-white hover:text-primary-foreground">
-              CONTACTO
-            </Link>
+            {menuItems.map((item) => (
+              <Link key={item.href} href={item.href} className={linkClass(item.href)}>
+                {item.label}
+              </Link>
+            ))}
             <Button variant="secondary" className="bg-white text-black hover:bg-white/90">
               ORDENE YA
             </Button>

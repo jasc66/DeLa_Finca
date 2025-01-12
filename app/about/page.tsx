@@ -43,7 +43,7 @@ export default function AboutPage() {
         ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
         className="relative min-h-screen pt-10"
         style={{
-          backgroundImage: "url('/fondo-gris.avif')",
+          backgroundImage: "url('/fondo-comida.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",

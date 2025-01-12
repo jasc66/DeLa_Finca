@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Card, CardContent } from "@/components/ui/card"
 
 declare global {
   interface Window {
@@ -86,15 +85,21 @@ export default function Testimonials() {
   }, [])
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
-        <Card>
-          <CardContent>
-            <div ref={trustmaryContainerRef} className="trustmary-container" />
-          </CardContent>
-        </Card>
+    <section className="py-20 relative">
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: "url('/fondo-comida.webp')",
+          filter: "brightness(0.7)",
+        }}
+      />
+      <div className="container mx-auto px-4 relative z-10 bg-[#91211e]">
+        <h2 className="text-4xl font-bold text-center mb-12 text-white ">Lo que dicen nuestros clientes</h2>
+        <div className="max-w-5xl mx-auto">
+          <div ref={trustmaryContainerRef} className="trustmary-container" />
+        </div>
       </div>
     </section>
   )
 }
+
