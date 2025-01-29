@@ -1,11 +1,8 @@
 let userConfig = {};
 
+// Intenta importar solo si el archivo existe
 try {
-  // Verificar si el archivo existe antes de importarlo
-  const module = await import('./v0-user-next.config.js')
-    .then((mod) => mod.default || mod)
-    .catch(() => ({}));
-
+  const module = await import('./v0-user-next.config.js').then(mod => mod.default || mod).catch(() => ({}));
   userConfig = module;
 } catch (e) {
   console.warn("User config not found, using default config.");
@@ -13,15 +10,9 @@ try {
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
+  images: { unoptimized: true },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
@@ -29,32 +20,7 @@ const baseConfig = {
   },
 };
 
-// Fusionar la configuración del usuario con la configuración base
-const nextConfig = mergeConfig(baseConfig, userConfig);
-
-function mergeConfig(baseConfig, userConfig) {
-  if (!userConfig || Object.keys(userConfig).length === 0) {
-    return baseConfig; // Retorna la configuración original si no hay nada que fusionar
-  }
-
-  const mergedConfig = { ...baseConfig };
-
-  for (const key in userConfig) {
-    if (
-      typeof baseConfig[key] === "object" &&
-      !Array.isArray(baseConfig[key]) &&
-      baseConfig[key] !== null
-    ) {
-      mergedConfig[key] = {
-        ...baseConfig[key],
-        ...userConfig[key],
-      };
-    } else {
-      mergedConfig[key] = userConfig[key];
-    }
-  }
-
-  return mergedConfig;
-}
+// Fusionar configuración
+const nextConfig = { ...baseConfig, ...userConfig };
 
 export default nextConfig;
