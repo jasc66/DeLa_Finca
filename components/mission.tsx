@@ -15,7 +15,7 @@ export default function Mission() {
       <div className="absolute left-0 sm:left-[10%] md:left-[20%] right-0 top-1/2 -translate-y-1/2 h-[80vh] bg-[#91211e] rounded-l-lg overflow-hidden">
         <div className="absolute inset-0 bg-black/50" />
         <Image
-          src="/img/cartonFondo.avif"
+          src="/img/table.webp"
           alt="Sustainable Practices"
           fill
           className="object-cover mix-blend-overlay opacity-50"

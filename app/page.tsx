@@ -5,12 +5,10 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from "lucide-react";
 import { FloatingImage } from "@/components/floating-image";
 import Hero from "@/components/hero";
-import Products from "@/components/products";
 import Mission from "@/components/mission";
-import Testimonials from "@/components/testimonials";
 import CTA from "@/components/cta";
 import { ImageCarousel } from "@/components/image-carousel";
 import PhotoGallery from "@/components/photo-gallery";
@@ -59,25 +57,41 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen relative overflow-hidden" ref={containerRef}>
-      <div 
+    <div
+      className="min-h-screen relative overflow-hidden flex flex-col"
+      ref={containerRef}
+    >
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: "url('/fondo-comida.webp')",
           filter: "brightness(0.7)",
         }}
       />
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col flex-grow">
         <Header />
         <Hero />
 
-        <main className="relative">
+        <main className="relative flex-grow">
+          <div
+            ref={mushroomRef}
+            className={`transition-opacity duration-300 ${
+              isMushroomVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+          </div>
+
           <section
             ref={(el: HTMLElement | null) => {
               sectionRefs.current[0] = el;
             }}
-            className="relative min-h-screen pt-20 bg-cover bg-center bg-no-repeat px-4 md:px-8 bg-[#91211e]"
-            style={{ backgroundImage: "url('/img/fondo-gris.avif')" }}
+            className="relative min-h-screen pt-20 bg-cover bg-center bg-no-repeat px-4 md:px-8"
+            style={{
+              backgroundImage: "url('/img/tablesolid.webp')",
+              backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay for better contrast
+              backgroundBlendMode: "overlay",
+              boxShadow: "-70% 0 10px rgba(0, 0, 0, 0.8)",
+            }}
           >
             <div className="container mx-auto pt-20">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -86,18 +100,19 @@ export default function Home() {
                     DE LA FINCA
                   </h1>
                   <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
-                    En De La Finca, nos enorgullecemos de ofrecer una experiencia
-                    culinaria única en Quepos, Costa Rica. Nuestra pasión es
-                    combinar ingredientes frescos y locales con técnicas modernas,
-                    creando platos que sorprenden el paladar. Desde deliciosas
-                    hamburguesas de atún hasta tartar de atún y lomito con
-                    gorgonzola, cada plato está preparado con dedicación. Nuestro
-                    ambiente acogedor y la atención personalizada hacen que cada
-                    visita sea especial. Ven y disfruta de sabores inolvidables,
-                    guiados por la pasión de servir lo mejor. Descubre una
-                    experiencia culinaria inolvidable, donde la pasión por los
-                    ingredientes frescos y el ambiente acogedor se unen para crear
-                    platos únicos en Quepos.
+                    En De La Finca, nos enorgullecemos de ofrecer una
+                    experiencia culinaria única en Quepos, Costa Rica. Nuestra
+                    pasión es combinar ingredientes frescos y locales con
+                    técnicas modernas, creando platos que sorprenden el paladar.
+                    Desde deliciosas hamburguesas de atún hasta tartar de atún y
+                    lomito con gorgonzola, cada plato está preparado con
+                    dedicación. Nuestro ambiente acogedor y la atención
+                    personalizada hacen que cada visita sea especial. Ven y
+                    disfruta de sabores inolvidables, guiados por la pasión de
+                    servir lo mejor. Descubre una experiencia culinaria
+                    inolvidable, donde la pasión por los ingredientes frescos y
+                    el ambiente acogedor se unen para crear platos únicos en
+                    Quepos.
                   </p>
                   <Button
                     variant="outline"
@@ -132,13 +147,13 @@ export default function Home() {
             }}
             className="relative min-h-screen flex items-center py-20 px-4 md:px-8"
           >
-            <div className="absolute left-0 right-0 md:right-[30%] top-1/2 -translate-y-1/2 h-[80vh] rounded-r-lg overflow-hidden bg-[#91211e]">
-              <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-x-4 md:inset-x-12 lg:inset-x-24 top-1/2 -translate-y-1/2 h-[80vh] bg-[#91211e] rounded-lg overflow-hidden">
+              <div className="absolute inset-0 bg-black/10" />
               <Image
-                src="/img/cartonFondo.avif"
+                src="/img/poke.webp"
                 alt="Farm to Table"
                 fill
-                className="object-cover mix-blend-overlay opacity-80"
+                className="object-cover mix-blend-overlay opacity-50"
               />
             </div>
 
@@ -173,9 +188,9 @@ export default function Home() {
             className="relative min-h-screen flex items-center justify-center py-20 px-4 md:px-8"
           >
             <div className="absolute inset-x-4 md:inset-x-12 lg:inset-x-24 top-1/2 -translate-y-1/2 h-[80vh] bg-[#91211e] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-black/0" />
+              <div className="absolute inset-0 bg-black/10" />
               <Image
-                src="/img/fondo-gris.avif"
+                src="/img/tablesolid.webp"
                 alt="Fresh Ingredients"
                 fill
                 className="object-cover mix-blend-overlay opacity-50"
@@ -189,10 +204,10 @@ export default function Home() {
                 </h2>
                 <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
                   Desde ensaladas frescas hasta platos principales elaborados,
-                  cada platillo en De La Finca está preparado con cuidado utilizando
-                  los mejores ingredientes. Priorizamos los productos locales y orgánicos,
-                  y creamos combinaciones de sabores que emocionan el paladar mientras
-                  nutren el cuerpo.
+                  cada platillo en De La Finca está preparado con cuidado
+                  utilizando los mejores ingredientes. Priorizamos los productos
+                  locales y orgánicos, y creamos combinaciones de sabores que
+                  emocionan el paladar mientras nutren el cuerpo.
                 </p>
               </div>
               <ImageCarousel />
@@ -206,14 +221,12 @@ export default function Home() {
               height={250}
             />
           </section>
+          <Mission />
+          <PhotoGallery />
+          <CTA />
         </main>
-        <Mission />
-        <Testimonials />
-        <PhotoGallery />
-        <CTA />
         <Footer />
       </div>
     </div>
   );
 }
-

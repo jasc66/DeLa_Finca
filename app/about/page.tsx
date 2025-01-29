@@ -40,15 +40,19 @@ export default function AboutPage() {
       
       {/* Hero Section */}
       <section 
-        ref={(el: HTMLElement | null) => { if (el) sectionRefs.current[0] = el }}
-        className="relative min-h-screen pt-10"
-        style={{
-          backgroundImage: "url('/img/cartonFondo.avif')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+        ref={(el) => {
+          sectionRefs.current[0] = el;
         }}
+        className="relative min-h-screen flex items-center"
       >
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/video/De_La Finca_simple1.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        ></video>
         <div className="container mx-auto px-4 pt-20 max-w-7xl">
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             <div className="space-y-6 text-center lg:text-left bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg w-full lg:w-1/2">
@@ -67,36 +71,9 @@ export default function AboutPage() {
                 />
               </div>
             </div>
-            
-            <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px]">
-              <Image
-                src="/img/comida2.jpg"
-                alt="De La Finca Restaurant"
-                fill
-                className="object-cover rounded-lg"
-                style={{
-                  filter: 'brightness(1.) contrast(1.1)',
-                  mixBlendMode: 'multiply'
-                }}
-              />
-              <div 
-                className="absolute inset-0 rounded-lg"
-                style={{
-                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)',
-                  mixBlendMode: 'overlay'
-                }}
-              />
-            </div>
+           
           </div>
         </div>
-
-        <FloatingImage
-          src="/png/img1_bg.png"
-          alt="Floating Mushroom"
-          className="absolute hidden md:block top-1/1 left-0 w-[100px] h-[100px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] floating-image z-10"
-          width={200}
-          height={200}
-        />
 
         <FloatingImage
           src="/png/img2_bg.png"

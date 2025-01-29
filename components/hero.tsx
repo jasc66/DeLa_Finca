@@ -1,40 +1,25 @@
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-
-const backgroundImages = [
-  '/header_de_la_finca.jpg',
-  '/header_nosotros.jpg' // Asegúrate de que esta imagen exista en tu proyecto
-]
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Hero() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === 0 ? 1 : 0
-      )
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {backgroundImages.map((image, index) => (
-        <div
-          key={image}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            backgroundImage: `url(${image})`
-          }}
-        />
-      ))}
+      {/* Video de fondo */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/video/De_La Finca_simple.mp4" type="video/mp4" />
+        Tu navegador no soporta videos en HTML5.
+      </video>
+      
+      {/* Capa de oscurecimiento */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
       
+      {/* Contenido */}
       <div className="relative container mx-auto px-4 text-center">
         <div className="max-w-5xl mx-auto space-y-8 bg-black/50 backdrop-blur-sm p-8 rounded-lg">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight text-white">
@@ -57,6 +42,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

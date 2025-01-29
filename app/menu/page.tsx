@@ -48,19 +48,21 @@ export default function MenuPage() {
     <div className="relative min-h-screen overflow-hidden" ref={containerRef}>
       <Header />
 
-      {/* Hero Section with fixed background */}
+      {/* Hero Section with video */}
       <section
         ref={(el) => {
           sectionRefs.current[0] = el;
         }}
         className="relative min-h-screen flex items-center"
-        style={{
-          backgroundImage: "url('/img/localComercial.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
       >
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/video/Atun.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        ></video>
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <motion.div
           className="container mx-auto px-4 relative z-10"
@@ -74,8 +76,8 @@ export default function MenuPage() {
               EXPLORE OUR DELICIOUS FRESH MENU AND START MAKING THE RIGHT FOOD
               CHOICES TODAY.
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="bg-transparent border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white"
             >
               <Download className="mr-2 h-4 w-4" />
