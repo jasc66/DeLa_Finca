@@ -1,27 +1,21 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
-import ErrorBoundary from '@/components/ErrorBoundary'
+// app/layout.tsx
+import "./globals.css"
+import { Inter } from "next/font/google"
+import ErrorBoundary from "@/components/ErrorBoundary"
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: 'De La Finca Restaurant',
-  description: 'Authentic Costa Rican cuisine in the heart of Quepos',
+  title: "De La Finca Restaurant",
+  description: "Authentic Costa Rican cuisine in the heart of Quepos",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </body>
     </html>
   )
 }
-
